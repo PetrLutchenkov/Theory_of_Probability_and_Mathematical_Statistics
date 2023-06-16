@@ -11,12 +11,19 @@ ks = [401, 574, 874, 919, 459, 739, 653, 902, 746, 832].
 а затем с использованием функций из библиотек numpy и pandas.
 """
 import numpy as np
+import matplotlib.pyplot as plt
 
 zp = np.array([35, 45, 190, 200, 40, 70, 54, 150, 120, 110])
 ks = np.array([401, 574, 874, 919, 459, 739, 653, 902, 746, 832])
 cov = np.mean(zp * ks) - np.mean(zp) * np.mean(ks)
 print(f'Смещённая ковариация величин с помощью элементарных действий {cov}')
-print(f'Смещённая ковариация с помощью с помощью функции cov {np.cov(zp, ks, ddof=0)}')
+print(f'Смещённая ковариация с помощью с помощью функции cov {round(np.cov(zp, ks, ddof=0)[0, 1], 2)}')
 print(f'Коэффициент корреляции Пирсона с помощью ковариации и среднеквадратичных отклонений двух признаков'
       f' {cov / (np.std(zp) * np.std(ks))}')
-print(f'Коэффициент корреляции Пирсона с использованием функции {np.corrcoef(zp, ks)}')
+r = np.corrcoef(zp, ks)
+print(f'Коэффициент корреляции Пирсона с использованием функции {round(r[0, 1], 2)}')
+plt.scatter(zp, ks)
+plt.title(f'r= {round(r[0, 1], 2)}')
+plt.xlabel('x')
+plt.ylabel('y')
+plt.show()
